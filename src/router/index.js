@@ -90,7 +90,6 @@ const routes = [
             {
                 path: 'dashboard',
                 name: 'Dashboard',
-                meta: {requiresAuth: true},
                 component: Dashboard
             },
             {
@@ -106,19 +105,16 @@ const routes = [
                     {
                         path: 'all',
                         name: 'Users',
-                        meta: {requiresAuth: true},
                         component: User
                     },
                     {
                         path: 'create',
                         name: 'CreateUser',
-                        meta: {requiresAuth: true},
                         component: CreateUser
                     },
                     {
                         path: 'edit',
                         name: 'EditUser',
-                        meta: {requiresAuth: true},
                         component: EditUser
                     }
                 ]
@@ -137,19 +133,16 @@ const routes = [
                     {
                         path: 'all',
                         name: 'Categories',
-                        meta: {requiresAuth: true},
                         component: Category
                     },
                     {
                         path: 'create',
                         name: 'CreateCategory',
-                        meta: {requiresAuth: true},
                         component: CreateCategory
                     },
                     {
                         path: 'edit',
                         name: 'EditCategory',
-                        meta: {requiresAuth: true},
                         component: EditCategory
                     }
                 ]
@@ -167,18 +160,15 @@ const routes = [
                     {
                         path: 'all',
                         name: 'Items',
-                        meta: {requiresAuth: true},
                         component: Items
                     },
                     {
                         path: 'create',
                         name: 'CreateItem',
-                        meta: {requiresAuth: true},
                         component: CreateItem
                     },
                     {
                         path: 'edit',
-                        meta: {requiresAuth: true},
                         name: 'EditItem',
                         component: EditItem
                     }
@@ -197,19 +187,16 @@ const routes = [
                     {
                         path: 'all',
                         name: 'Contractor',
-                        meta: {requiresAuth: true},
                         component: Contractor
                     },
                     {
                         path: 'create',
                         name: 'CreateContractor',
-                        meta: {requiresAuth: true},
                         component: CreateContractor
                     },
                     {
                         path: 'edit',
                         name: 'EditContractor',
-                        meta: {requiresAuth: true},
                         component: EditContractor
                     }
                 ]
@@ -260,6 +247,7 @@ const routes = [
     }
 ]
 
+
 const router = new Router({
     mode: 'history',
     saveScrollPosition: true,
@@ -268,26 +256,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     let currentUser
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     const match = document.cookie.match(new RegExp('(^| )' + '_token' + '=([^;]+)'))
+    // eslint-disable-next-line prefer-const
     currentUser = match ? match[0].trim().slice(7, match[0].trim().length) : null
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!currentUser) {
-            console.log(!currentUser)
-            next({
-                path: '/pages/login',
-                query: { redirect: to.fullPath }
-            })
-        } else {
-            next()
-        }
-    } else if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (currentUser) {
-            next({
-                path: '/'
-            })
-        } else {
-            next()
-        }
+    if (!currentUser && requiresAuth) {
+        next('/pages/login')
     } else {
         next()
     }
