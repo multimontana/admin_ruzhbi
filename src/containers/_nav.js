@@ -27,7 +27,7 @@ export default [
                         to: '/user/all'
                     },
                     {
-                        name: 'CreateUser',
+                        name: 'Create User',
                         to: '/user/create'
                     }
                 ]
@@ -43,7 +43,7 @@ export default [
                         to: '/category/all'
                     },
                     {
-                        name: 'CreateCategory',
+                        name: 'Create Category',
                         to: '/category/create'
                     }
                 ]
@@ -59,7 +59,7 @@ export default [
                         to: '/item/all'
                     },
                     {
-                        name: 'CreateProduct',
+                        name: 'Create Product',
                         to: '/item/create'
                     }
                 ]
@@ -75,7 +75,7 @@ export default [
                         to: '/contractor/all'
                     },
                     {
-                        name: 'CreateContractor',
+                        name: 'Create Contractor',
                         to: '/contractor/create'
                     }
                 ]
