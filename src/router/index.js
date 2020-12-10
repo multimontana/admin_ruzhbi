@@ -225,7 +225,9 @@ const routes = [
         redirect: '/pages/404',
         name: 'Pages',
         component: {
-            render (c) { return c('router-view') }
+            render(c) {
+                return c('router-view')
+            }
         },
         children: [
             {

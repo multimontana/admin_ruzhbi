@@ -105,9 +105,10 @@ export default {
                 })
         },
         deleteItem(item) {
+          let vm = this
             if (confirm('Are you sure remove this category?')) {
                 this.deleteCategory(item).then(res => {
-                    this.get()
+                    vm.get()
                 })
             }
         }
