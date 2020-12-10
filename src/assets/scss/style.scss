@@ -1,0 +1,40 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+.card-header:not(.content-center) > .c-icon:first-child {
+  margin-right: 0.1rem;
+  margin-top: 0.1rem;
+  vertical-align: top;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 1.2rem;
+}
+.is-sortable-disabled > div{
+  border-color: #d8dbe0!important;
+}
+.invalid{
+  > div {
+   border-color: #e55353!important;
+  }
+}
+.invalid ~ .invalid-feedback{
+  display: block;
+}
+.valid{
+  > div {
+    border-color: #2eb85c!important;
+  }
+}
+.tab{
+  > .nav-link {
+    padding: 0;
+  }
+}
+
+
