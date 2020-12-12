@@ -100,9 +100,6 @@ export default {
       markup: {
         required
       },
-      image: {
-        required
-      },
       meta_title: {
         required
       },
