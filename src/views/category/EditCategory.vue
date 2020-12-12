@@ -10,11 +10,21 @@
         </div>
         <div class="form-group">
             <label>Название *</label>
-            <input type="text" class="form-control form-control-lg" v-model="category.title">
+            <input type="text" class="form-control form-control-lg" v-model="category.title"
+                   :class="{'is-invalid': $v.category.title.$error}"
+                   @blur="$v.category.title.$touch">
+          <div class="invalid-feedback" v-if="!$v.category.title.required">
+            Title field is required
+          </div>
         </div>
         <div class="form-group">
             <label>Наценка категории *</label>
-            <input type="text" class="form-control form-control-lg" v-model="category.markup">
+            <input type="text" class="form-control form-control-lg" v-model="category.markup"
+                   :class="{'is-invalid': $v.category.markup.$error}"
+                   @blur="$v.category.markup.$touch">
+          <div class="invalid-feedback" v-if="!$v.category.markup.required">
+            Markup field is required
+          </div>
         </div>
         <div class="form-group">
             <label>Серия/ГОСТ/Чертеж</label>
@@ -47,15 +57,21 @@
         </div>
         <div class="form-group">
             <label>Изображение</label>
-            <input type="file" @change="onImageChange" class="form-control-file">
+            <input type="file" @change="onImageChange" class="form-control-file"
+                   :class="{'is-invalid': $v.category.meta_title.$error}"
+                   @blur="$v.category.meta_title.$touch">
+          <div class="invalid-feedback" v-if="!$v.category.meta_title.required">
+            Image field is required
+          </div>
         </div>
-        <button class="btn btn-primary" @click="edit()">Изменить</button>
+        <button class="btn btn-primary" :disabled="$v.$invalid" @click="edit()">Изменить</button>
     </div>
 </template>
 
 <script>
 import {mapActions} from "vuex";
 import Multiselect from 'vue-multiselect';
+import {required} from "vuelidate/lib/validators";
 
 export default {
     name: "EditCategory",
@@ -77,6 +93,22 @@ export default {
             items: []
         };
     },
+  validations: {
+    category: {
+      title: {
+        required
+      },
+      markup: {
+        required
+      },
+      image: {
+        required
+      },
+      meta_title: {
+        required
+      },
+    }
+  },
     components: {Multiselect},
     created() {
         this.get()
