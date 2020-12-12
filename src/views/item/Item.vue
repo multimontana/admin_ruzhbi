@@ -80,7 +80,7 @@ export default {
             fields,
             details: [],
             collapseDuration: 0,
-            per_page: 50
+            per_page: 20
         }
     },
     created() {
