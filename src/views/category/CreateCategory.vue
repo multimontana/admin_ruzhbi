@@ -61,12 +61,7 @@
     </div>
     <div class="form-group">
       <label for="">Изображение *</label>
-      <input type="file" @change="onImageChange" class="form-control-file"
-             :class="{'is-invalid': $v.category.image.$error}"
-             @blur="$v.category.image.$touch">
-      <div class="invalid-feedback" v-if="!$v.category.image.required">
-        Image field is required
-      </div>
+      <input type="file" @change="onImageChange" class="form-control-file">
     </div>
     <button class="btn btn-primary" :disabled="$v.$invalid" @click="create()">Создать</button>
   </div>

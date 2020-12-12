@@ -57,12 +57,7 @@
         </div>
         <div class="form-group">
             <label>Изображение</label>
-            <input type="file" @change="onImageChange" class="form-control-file"
-                   :class="{'is-invalid': $v.category.meta_title.$error}"
-                   @blur="$v.category.meta_title.$touch">
-          <div class="invalid-feedback" v-if="!$v.category.meta_title.required">
-            Image field is required
-          </div>
+            <input type="file" @change="onImageChange" class="form-control-file">
         </div>
         <button class="btn btn-primary" :disabled="$v.$invalid" @click="edit()">Изменить</button>
     </div>
@@ -99,9 +94,6 @@ export default {
         required
       },
       markup: {
-        required
-      },
-      image: {
         required
       },
       meta_title: {
