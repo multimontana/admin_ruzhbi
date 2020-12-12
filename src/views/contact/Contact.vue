@@ -8,27 +8,49 @@
         </div>
         <div class="form-group">
             <label for="">Номер телефона *</label>
-            <input type="text" class="form-control form-control-lg" v-model="contact.phone">
+            <input type="text" class="form-control form-control-lg" v-model="contact.phone"
+                   :class="{'is-invalid': $v.contact.phone.$error}"
+                   @blur="$v.contact.phone.$touch"
+            >
+          <div class="invalid-feedback" v-if="!$v.contact.phone.required">
+               Phone number is required
+          </div>
         </div>
         <div class="form-group">
             <label for="">Email *</label>
-            <input type="email" class="form-control form-control-lg" v-model="contact.email">
+            <input type="email" class="form-control form-control-lg" v-model="contact.email"
+                   :class="{'is-invalid' : $v.contact.email.$error}"
+                   @blur="$v.contact.email.$touch"
+            >
+          <div class="invalid-feedback" v-if="!$v.contact.email.required">
+            Email field is required
+          </div>
+          <div class="invalid-feedback" v-if="!$v.contact.email.email">
+            This field should be an email
+          </div>
         </div>
         <div class="form-group">
             <label for="">Адрес *</label>
-            <input type="text" class="form-control form-control-lg" v-model="contact.address" @keyup="getAddress ()">
+            <input type="text" class="form-control form-control-lg" v-model="contact.address" @keyup="getAddress ()"
+                   :class="{'is-invalid': $v.contact.address.$error}"
+                   @blur="$v.contact.address.$touch"
+            >
+          <div class="invalid-feedback" v-if="!$v.contact.address.required">
+            Address number is required
+          </div>
             <ul>
                 <li class="list-group-item" v-for="(addr, index) in addresses" :key="index" @click="selectAddr(addr)">
                     {{ addr }}
                 </li>
             </ul>
         </div>
-        <button class="btn btn-primary" @click="create()">Сохранить</button>
+        <button class="btn btn-primary" :disabled="$v.$invalid" @click="create()">Сохранить</button>
     </div>
 </template>
 
 <script>
 import {mapActions} from "vuex";
+import {email, required} from "vuelidate/lib/validators";
 
 export default {
     name: "Contact",
@@ -46,6 +68,20 @@ export default {
             addresses: []
         }
     },
+  validations: {
+    contact: {
+      phone: {
+        required
+      },
+      email: {
+        required,
+        email
+      },
+      address: {
+        required
+      }
+    }
+  },
     created() {
         this.get()
     },
