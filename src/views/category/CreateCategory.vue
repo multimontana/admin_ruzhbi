@@ -42,7 +42,7 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
-        <label for="">Мета заголовок</label>
+        <label for="">Мета заголовок *</label>
         <input type="text" class="form-control form-control-lg" v-model="category.meta_title"
         :class="{'is-invalid': $v.category.meta_title.$error}"
         @blur="$v.category.meta_title.$touch">
