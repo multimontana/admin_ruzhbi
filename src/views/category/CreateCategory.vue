@@ -107,7 +107,7 @@ export default {
   },
   components: {Multiselect},
   created() {
-    this.get();
+    this.get()
   },
   methods: {
     ...mapActions(['getCategories', 'createCategory']),
