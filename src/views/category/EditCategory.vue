@@ -13,26 +13,26 @@
             <input type="text" class="form-control form-control-lg" v-model="category.title"
                    :class="{'is-invalid': $v.category.title.$error}"
                    @blur="$v.category.title.$touch">
-          <div class="invalid-feedback" v-if="!$v.category.title.required">
-            Title field is required
-          </div>
+            <div class="invalid-feedback" v-if="!$v.category.title.required">
+                Title field is required
+            </div>
         </div>
         <div class="form-group">
             <label>Наценка категории *</label>
             <input type="text" class="form-control form-control-lg" v-model="category.markup"
                    :class="{'is-invalid': $v.category.markup.$error}"
                    @blur="$v.category.markup.$touch">
-          <div class="invalid-feedback" v-if="!$v.category.markup.required">
-            Markup field is required
-          </div>
+            <div class="invalid-feedback" v-if="!$v.category.markup.required">
+                Markup field is required
+            </div>
         </div>
         <div class="form-group">
             <label>Серия/ГОСТ/Чертеж</label>
             <multiselect
-                :options="serias"
-                :multiple="true"
-                :taggable="true"
-                v-model="category.seria"
+                    :options="serias"
+                    :multiple="true"
+                    :taggable="true"
+                    v-model="category.seria"
             >
             </multiselect>
         </div>
@@ -70,7 +70,7 @@ import {required} from "vuelidate/lib/validators";
 
 export default {
     name: "EditCategory",
-    data() {
+    data () {
         return {
             category: {
                 parent_id: '',
@@ -88,18 +88,18 @@ export default {
             items: []
         };
     },
-  validations: {
-    category: {
-      title: {
-        required
-      },
-      markup: {
-        required
-      }
-    }
-  },
+    validations: {
+        category: {
+            title: {
+                required
+            },
+            markup: {
+                required
+            }
+        }
+    },
     components: {Multiselect},
-    created() {
+    created () {
         this.get()
         if (this.$route.params.item) {
             this.category = this.$route.params.item
@@ -110,20 +110,20 @@ export default {
     },
     methods: {
         ...mapActions(['getCategories', 'editCategory']),
-        get() {
+        get () {
             this.getCategories().then(res => {
                 this.categories = res.cat;
                 this.serias = res.serias;
             });
         },
-        edit() {
+        edit () {
             this.editCategory(this.category).then(res => {
                 if (res.success) {
                     this.$router.push('/category/all')
                 }
             });
         },
-        onImageChange(e) {
+        onImageChange (e) {
             let file = e.target.files[0];
             let reader = new FileReader();
             if (file['size'] < 2111775) {

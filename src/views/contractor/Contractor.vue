@@ -1,24 +1,24 @@
 <template>
     <CCardBody>
         <CDataTable
-            :items="items"
-            :fields="fields"
-            column-filter
-            table-filter
-            items-per-page-select
-            :items-per-page="10"
-            hover
-            sorter
-            pagination
+                :items="items"
+                :fields="fields"
+                column-filter
+                table-filter
+                items-per-page-select
+                :items-per-page="10"
+                hover
+                sorter
+                pagination
         >
             <template #edit="{item}">
                 <td class="py-2">
                     <CButton
-                        color="primary"
-                        variant="outline"
-                        square
-                        size="sm"
-                        @click="edit(item)"
+                            color="primary"
+                            variant="outline"
+                            square
+                            size="sm"
+                            @click="edit(item)"
                     >
                         {{ 'Edit' }}
                     </CButton>
@@ -27,11 +27,11 @@
             <template #delete="{item}">
                 <td class="py-2">
                     <CButton
-                        color="danger"
-                        variant="outline"
-                        square
-                        size="sm"
-                        @click="deleteItem(item)"
+                            color="danger"
+                            variant="outline"
+                            square
+                            size="sm"
+                            @click="deleteItem(item)"
                     >
                         {{ 'Delete' }}
                     </CButton>
@@ -67,7 +67,7 @@ const fields = [
 ]
 export default {
     name: 'Category',
-    data() {
+    data () {
         return {
             items: [],
             fields,
@@ -75,27 +75,27 @@ export default {
             collapseDuration: 0
         }
     },
-  mounted() {
-    document.querySelector('h2').innerHTML='<img src="/img/load.gif" class="loading" alt="load data">';
-  },
-    created() {
+    mounted () {
+        document.querySelector('h2').innerHTML = '<img src="/img/load.gif" class="loading" alt="load data">';
+    },
+    created () {
         this.get()
     },
     methods: {
         ...mapActions(['getCategories', 'deleteCategory']),
-        get() {
+        get () {
             this.getCategories().then(res => {
                 this.items = res.cat
             })
         },
-        edit(item) {
+        edit (item) {
             this.$router.push(
                 {
                     name: 'EditCategory',
                     params: {'item': item}
                 })
         },
-        deleteItem(item) {
+        deleteItem (item) {
             if (confirm('Are you sure remove this category?')) {
                 this.deleteCategory(item).then(res => {
                     this.get()

@@ -5,7 +5,7 @@ const qs = require('query-string')
 export const category = {
     mutations: {},
     actions: {
-        async getCategories(context, data) {
+        async getCategories (context, data) {
             try {
                 const response = await axios.get('/categories', {
                     headers: {
@@ -21,9 +21,9 @@ export const category = {
                 console.log(e.response.data.message);
             }
         },
-        async createCategory(context, data) {
+        async createCategory (context, data) {
             try {
-                if(data.title && data.markup) {
+                if (data.title && data.markup) {
                     data.seria = JSON.stringify(data.seria)
                 }
                 const response = await axios.post('/categories/create', qs.stringify(data), {
@@ -32,7 +32,7 @@ export const category = {
                         'Access-Control-Allow-Origin': '*'
                     }
                 })
-                console.log(response,'ggg')
+                console.log(response, 'ggg')
                 if (response.data) {
                     return response.data
                 }
@@ -41,9 +41,9 @@ export const category = {
                 console.log(e.response.data.message);
             }
         },
-        async editCategory(context, data) {
+        async editCategory (context, data) {
             try {
-                if(data.title && data.markup) {
+                if (data.title && data.markup) {
                     data.seria = JSON.stringify(data.seria)
                 }
                 const response = await axios.put('/categories/' + data.id, qs.stringify(data), {
@@ -60,7 +60,7 @@ export const category = {
                 console.log(e.response.data.message);
             }
         },
-        async deleteCategory(context, data) {
+        async deleteCategory (context, data) {
             try {
                 const response = await axios.get('/categories/' + data.id, {
                     headers: {

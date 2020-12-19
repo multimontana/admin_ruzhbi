@@ -92,7 +92,7 @@ export default {
       title: {
         required
       },
-      markup: {
+        markup: {
         required
       }
     }

@@ -1,24 +1,24 @@
 <template>
     <CCardBody>
         <CDataTable
-            :items="users"
-            :fields="fields"
-            column-filter
-            table-filter
-            :items-per-page-select="true"
-            :items-per-page="20"
-            hover
-            sorter
-            pagination
+                :items="users"
+                :fields="fields"
+                column-filter
+                table-filter
+                :items-per-page-select="true"
+                :items-per-page="20"
+                hover
+                sorter
+                pagination
         >
             <template #edit="{item}">
                 <td class="py-2">
                     <CButton
-                        color="primary"
-                        variant="outline"
-                        square
-                        size="sm"
-                        @click="edit(item)"
+                            color="primary"
+                            variant="outline"
+                            square
+                            size="sm"
+                            @click="edit(item)"
                     >
                         {{ 'Edit' }}
                     </CButton>
@@ -27,11 +27,11 @@
             <template #delete="{item}">
                 <td class="py-2">
                     <CButton
-                        color="danger"
-                        variant="outline"
-                        square
-                        size="sm"
-                        @click="deleteItem(item)"
+                            color="danger"
+                            variant="outline"
+                            square
+                            size="sm"
+                            @click="deleteItem(item)"
                     >
                         {{ 'Delete' }}
                     </CButton>
@@ -67,7 +67,7 @@ const fields = [
 ]
 export default {
     name: 'User',
-    data() {
+    data () {
         return {
             users: [],
             fields,
@@ -75,27 +75,27 @@ export default {
             collapseDuration: 0
         }
     },
-  mounted() {
-    document.querySelector('h2').innerHTML='<img src="/img/load.gif" class="loading" alt="load data">';
-  },
-    created() {
+    mounted () {
+        document.querySelector('h2').innerHTML = '<img src="/img/load.gif" class="loading" alt="load data">';
+    },
+    created () {
         this.get()
     },
     methods: {
         ...mapActions(['getUsers', 'deleteUser']),
-        get() {
+        get () {
             this.getUsers().then(res => {
                 this.users = res.user
             })
         },
-        edit(user) {
+        edit (user) {
             this.$router.push(
                 {
                     name: 'EditUser',
                     params: {'user': user}
                 })
         },
-        deleteItem(item) {
+        deleteItem (item) {
             if (confirm('Are you sure remove this user?')) {
                 this.deleteUser(item).then(res => {
                     this.get()

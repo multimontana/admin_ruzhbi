@@ -12,9 +12,9 @@
                    :class="{'is-invalid': $v.contact.phone.$error}"
                    @blur="$v.contact.phone.$touch"
             >
-          <div class="invalid-feedback" v-if="!$v.contact.phone.required">
-               Phone number is required
-          </div>
+            <div class="invalid-feedback" v-if="!$v.contact.phone.required">
+                Phone number is required
+            </div>
         </div>
         <div class="form-group">
             <label for="">Email *</label>
@@ -22,12 +22,12 @@
                    :class="{'is-invalid' : $v.contact.email.$error}"
                    @blur="$v.contact.email.$touch"
             >
-          <div class="invalid-feedback" v-if="!$v.contact.email.required">
-            Email field is required
-          </div>
-          <div class="invalid-feedback" v-if="!$v.contact.email.email">
-            This field should be an email
-          </div>
+            <div class="invalid-feedback" v-if="!$v.contact.email.required">
+                Email field is required
+            </div>
+            <div class="invalid-feedback" v-if="!$v.contact.email.email">
+                This field should be an email
+            </div>
         </div>
         <div class="form-group">
             <label for="">Адрес *</label>
@@ -35,9 +35,9 @@
                    :class="{'is-invalid': $v.contact.address.$error}"
                    @blur="$v.contact.address.$touch"
             >
-          <div class="invalid-feedback" v-if="!$v.contact.address.required">
-            Address number is required
-          </div>
+            <div class="invalid-feedback" v-if="!$v.contact.address.required">
+                Address number is required
+            </div>
             <ul>
                 <li class="list-group-item" v-for="(addr, index) in addresses" :key="index" @click="selectAddr(addr)">
                     {{ addr }}
@@ -54,7 +54,7 @@ import {email, required} from "vuelidate/lib/validators";
 
 export default {
     name: "Contact",
-    data() {
+    data () {
         return {
             contact: {
                 id: '',
@@ -68,33 +68,33 @@ export default {
             addresses: []
         }
     },
-  validations: {
-    contact: {
-      phone: {
-        required
-      },
-      email: {
-        required,
-        email
-      },
-      address: {
-        required
-      }
-    }
-  },
-    created() {
+    validations: {
+        contact: {
+            phone: {
+                required
+            },
+            email: {
+                required,
+                email
+            },
+            address: {
+                required
+            }
+        }
+    },
+    created () {
         this.get()
     },
     methods: {
         ...mapActions(['getContact', 'createContact', 'getAddresses']),
-        get() {
+        get () {
             this.getContact().then(res => {
                 if (res.contact) {
                     this.contact = res.contact
                 }
             })
         },
-        create() {
+        create () {
             this.createContact(this.contact).then(res => {
                 if (res.success) {
                     this.get()
@@ -106,10 +106,10 @@ export default {
                 }
             })
         },
-        onlyUnique(value, index, self) {
+        onlyUnique (value, index, self) {
             return self.indexOf(value) === index;
         },
-        getAddress() {
+        getAddress () {
             if (this.contact.address) {
                 this.getAddresses(this.contact.address).then(res => {
                     if (res) {
@@ -124,7 +124,7 @@ export default {
                 this.addresses = []
             }
         },
-        selectAddr(e) {
+        selectAddr (e) {
             this.contact.address = e
             this.addresses = []
         },
