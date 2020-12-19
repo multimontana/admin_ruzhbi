@@ -43,7 +43,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label>Мета заголовок *</label>
+                <label>Мета заголовок</label>
                 <input type="text" class="form-control form-control-lg" v-model="category.meta_title">
             </div>
             <div class="form-group col-md-4">
@@ -95,10 +95,7 @@ export default {
       },
       markup: {
         required
-      },
-      meta_title: {
-        required
-      },
+      }
     }
   },
     components: {Multiselect},

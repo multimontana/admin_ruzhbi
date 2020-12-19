@@ -87,8 +87,11 @@ export default {
             collapseDuration: 0
         }
     },
-    created() {
-        this.get()
+  mounted() {
+    document.querySelector('h2').innerHTML='<img src="/img/load.gif" class="loading" alt="load data">';
+  },
+  created() {
+      this.get()
     },
     methods: {
         ...mapActions(['getCategories', 'deleteCategory']),

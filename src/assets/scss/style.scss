@@ -7,6 +7,12 @@
 // If you want to add something do it here
 @import "custom";
 
+.loading {
+  height: 200px;
+  position: fixed;
+  left: 50%;
+}
+
 .card-header:not(.content-center) > .c-icon:first-child {
   margin-right: 0.1rem;
   margin-top: 0.1rem;
@@ -15,23 +21,28 @@
   height: 1.2rem;
   font-size: 1.2rem;
 }
-.is-sortable-disabled > div{
-  border-color: #d8dbe0!important;
+
+.is-sortable-disabled > div {
+  border-color: #d8dbe0 !important;
 }
-.invalid{
+
+.invalid {
   > div {
-   border-color: #e55353!important;
+    border-color: #e55353 !important;
   }
 }
-.invalid ~ .invalid-feedback{
+
+.invalid ~ .invalid-feedback {
   display: block;
 }
-.valid{
+
+.valid {
   > div {
-    border-color: #2eb85c!important;
+    border-color: #2eb85c !important;
   }
 }
-.tab{
+
+.tab {
   > .nav-link {
     padding: 0;
   }

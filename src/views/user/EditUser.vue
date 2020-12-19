@@ -33,7 +33,7 @@
     </div>
     <div class="form-group">
       <label for="">Password *</label>
-      <input type="text" class="form-control form-control-lg" v-model="user.password"
+      <input type="password" class="form-control form-control-lg" v-model="user.password"
              :class="{'is-invalid': $v.user.password.$error}"
              @blur="$v.user.password.$touch"
       >

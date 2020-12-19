@@ -44,13 +44,14 @@
             :click-handler="getResults"
             :prev-text="'«'"
             :next-text="'»'"
-            :container-class="'pagination'">
+            :container-class="'paginationItem'">
         </paginate>
     </CCardBody>
 </template>
 
 <script>
 import {mapActions} from "vuex";
+import Vue from 'vue'
 
 const fields = [
     {key: 'title', _style: 'min-width:200px'},
@@ -83,6 +84,11 @@ export default {
             per_page: 20
         }
     },
+  mounted() {
+    Vue.nextTick(function () {
+      document.querySelector('h2').innerHTML = '<img src="/img/load.gif" class="loading" alt="load data">';
+    })
+  },
     created() {
         this.getResults()
     },

@@ -42,13 +42,8 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
-        <label for="">Мета заголовок *</label>
-        <input type="text" class="form-control form-control-lg" v-model="category.meta_title"
-        :class="{'is-invalid': $v.category.meta_title.$error}"
-        @blur="$v.category.meta_title.$touch">
-        <div class="invalid-feedback" v-if="!$v.category.meta_title.required">
-          Image field is required
-        </div>
+        <label for="">Мета заголовок</label>
+        <input type="text" class="form-control form-control-lg" v-model="category.meta_title">
       </div>
       <div class="form-group col-md-4">
         <label for="">Мета описание </label>
@@ -99,10 +94,7 @@ export default {
       },
       markup: {
         required
-      },
-      meta_title: {
-        required
-      },
+      }
     }
   },
   components: {Multiselect},
