@@ -86,6 +86,12 @@ export default [
                 to: '/contact',
                 icon: 'cil-chart-pie'
             },
+            {
+                _name: 'CSidebarNavItem',
+                name: 'Order',
+                to: '/order',
+                icon: 'cil-chart-pie'
+            },
             //         {
             //             _name: 'CSidebarNavDropdown',
             //             name: 'Buttons',

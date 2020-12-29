@@ -9,6 +9,7 @@ import {contractors} from './modules/contractors'
 import {items} from './modules/items'
 import {contact} from './modules/contact'
 import {station} from "@/store/modules/station";
+import {order} from "@/store/modules/order";
 
 export default new Vuex.Store({
         modules: {
@@ -18,6 +19,7 @@ export default new Vuex.Store({
             contractors,
             items,
             contact,
+            order,
             station
         }
     }

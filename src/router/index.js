@@ -27,6 +27,9 @@ const EditContractor = () => import('@/views/contractor/EditContractor')
 //Contact
 const Contact = () => import('@/views/contact/Contact')
 
+//Order
+const Order = () => import('@/views/order/Order')
+
 // Containers
 const TheContainer = () => import('@/containers/TheContainer')
 
@@ -215,6 +218,23 @@ const routes = [
                         path: '/',
                         name: 'contactInfo',
                         component: Contact
+                    }
+                ]
+            },
+            {
+                path: 'order',
+                name: 'order',
+                meta: {requiresAuth: true},
+                component: {
+                    render(c) {
+                        return c('router-view')
+                    }
+                },
+                children: [
+                    {
+                        path: '/',
+                        name: 'orderInfo',
+                        component: Order
                     }
                 ]
             },
