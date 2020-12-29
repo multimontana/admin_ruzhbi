@@ -7,7 +7,7 @@ export const order = {
     actions: {
         async getOrders (context, data) {
             try {
-                const response = await axios.get('/order' + data, {
+                const response = await axios.get('/order', {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Access-Control-Allow-Origin': '*'
@@ -21,7 +21,7 @@ export const order = {
                 console.log(e.response.data.message);
             }
         },
-        async deleteContact (context, data) {
+        async deleteOrder (context, data) {
             try {
                 const response = await axios.post('/order/' + data.id, {
                     headers: {
