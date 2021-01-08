@@ -33,6 +33,18 @@ export default [
                 ]
             },
             {
+                _name: 'CSidebarNavItem',
+                name: 'Order',
+                to: '/order',
+                icon: 'cil-star'
+            },
+            {
+                _name: 'CSidebarNavItem',
+                name: 'Contact',
+                to: '/contact',
+                icon: 'cil-chart-pie'
+            },
+            {
                 _name: 'CSidebarNavDropdown',
                 name: 'Category',
                 route: '/category',
@@ -68,7 +80,7 @@ export default [
                 _name: 'CSidebarNavDropdown',
                 name: 'Contractor',
                 route: '/contractor',
-                icon: 'cil-cursor',
+                icon: 'cil-bell',
                 items: [
                     {
                         name: 'Contractor',
@@ -80,18 +92,8 @@ export default [
                     }
                 ]
             },
-            {
-                _name: 'CSidebarNavItem',
-                name: 'Contact',
-                to: '/contact',
-                icon: 'cil-chart-pie'
-            },
-            {
-                _name: 'CSidebarNavItem',
-                name: 'Order',
-                to: '/order',
-                icon: 'cil-chart-pie'
-            },
+
+
             //         {
             //             _name: 'CSidebarNavDropdown',
             //             name: 'Buttons',
