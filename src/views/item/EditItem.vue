@@ -66,7 +66,7 @@
         <input type="text" class="form-control form-control-lg" v-model="item.meta_keyword">
       </div>
     </div>
-    <button class="btn btn-primary" @click="edit()">Изменить</button>
+    <button class="btn btn-primary" :disabled="$v.$invalid" @click="edit()">Изменить</button>
   </div>
 </template>
 

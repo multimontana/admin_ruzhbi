@@ -59,7 +59,7 @@
         <input type="text" class="form-control form-control-lg" v-model="item.meta_keyword">
       </div>
     </div>
-    <button class="btn btn-primary" @click="create()">Создать</button>
+    <button class="btn btn-primary" :disabled="$v.$invalid" @click="create()">Создать</button>
   </div>
 </template>
 
