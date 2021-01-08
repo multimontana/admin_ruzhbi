@@ -2,11 +2,22 @@
     <div>
         <div class="form-group">
             <label for="">Название *</label>
-            <input type="text" class="form-control form-control-lg" v-model="item.title">
+            <input type="text" class="form-control form-control-lg" v-model="item.title"
+          :class="{'is-invalid': $v.item.title.$error}"
+          @blur="$v.item.title.$touch">
+          <div class="invalid-feedback" v-if="!$v.item.title.required">
+            Title field is required
+          </div>
         </div>
         <div class="form-group">
             <label for="">Наценка категории *</label>
-            <input type="text" class="form-control form-control-lg" v-model="item.markup">
+            <input type="text" class="form-control form-control-lg" v-model="item.markup"
+                   :class="{'is-invalid': $v.item.markup.$error}"
+                   @blur="$v.item.markup.$touch">
+          <div class="invalid-feedback" v-if="!$v.item.markup.required">
+            Markup field is required
+          </div>
+
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Комментарий</label>
@@ -54,6 +65,7 @@
 
 <script>
 import {mapActions} from "vuex";
+import {required} from "vuelidate/lib/validators";
 
 export default {
     name: "CreateItem",
@@ -77,6 +89,16 @@ export default {
             prices: []
         };
     },
+  validations: {
+    item: {
+      title: {
+        required
+      },
+      markup: {
+        required
+      }
+    }
+  },
 
     created() {
         this.get()
