@@ -58,7 +58,7 @@ export const contractors = {
         },
         async deleteContractor (context, data) {
             try {
-                const response = await axios.delete('/contractors/'+ data.id, {
+                const response = await axios.get('/contractors/'+ data.id, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Access-Control-Allow-Origin': '*'

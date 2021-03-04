@@ -23,21 +23,23 @@
     <div class="form-group">
       <label>ЖД станция отгрузки</label>
       <div class="d-flex align-items-center">
-        <input type="checkbox" class="form-control" style="width: 40px" v-model="checked"> <input type="text"
-                                                                                                  class="form-control form-control-lg"
-                                                                                                  @keyup="getStation()"
-                                                                                                  v-model="contractor.station">
+        <input type="checkbox" class="form-control" style="width: 40px" v-model="checked">
+        <input type="text"
+               class="form-control form-control-lg"
+               @keyup="getStation()"
+               v-model="contractor.station">
       </div>
-      <ul class="list-group selectStyle" v-if="station.length">
-        <li class="list-group-item" v-for="(stat, index) in station" :key="index"
+      <ul class="list-group selectStyle" v-if="stations.length">
+        <li class="list-group-item" v-for="(stat, index) in stations" :key="index"
             @click="selectedStation(stat)">{{ stat.code }}-{{ stat.region }}({{ stat.road }})
         </li>
       </ul>
     </div>
     <div class="form-group">
       <label>Статус</label>
+      {{ contractor.status }}
       <select class="form-control form-control-lg" v-model="contractor.status">
-        <option value="0" selected="">Не определен</option>
+        <option value="0">Не определен</option>
         <option value="1">Всё ок</option>
         <option value="2">Можно работать, но...</option>
         <option value="3">Не работаем</option>
@@ -49,7 +51,7 @@
                 v-model="contractor.comment"></textarea>
     </div>
     <div>
-      <span v-if="error_mess" style="color:red">{{error_mess}}</span>
+      <span v-if="error_mess" style="color:red">{{ error_mess }}</span>
     </div>
     <button class="btn btn-primary" @click="create()">Добавить</button>
   </div>
@@ -73,20 +75,20 @@ export default {
         comment: ''
       },
       checked: false,
-      station: []
+      stations: []
     };
   },
   methods: {
     ...mapActions(['createContractor', 'getStations']),
     getStation() {
       this.getStations(this.contractor.station).then(res => {
-        this.station = res.station;
+        this.stations = res.station;
       });
     },
     selectedStation(item) {
       this.contractor.station = item.code + '-' + item.region + '(' + item.road + ')'
       this.contractor.station_id = item.id
-      this.station = []
+      this.stations = []
     },
     create() {
       if (this.checked && !this.contractor.station_id) {
@@ -110,6 +112,10 @@ export default {
 .selectStyle {
   max-height: 200px;
   overflow: scroll
+}
+
+.selectStyle ul li {
+  cursor: pointer
 }
 </style>
 

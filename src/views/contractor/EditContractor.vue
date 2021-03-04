@@ -49,7 +49,7 @@
                 v-model="contractor.comment"></textarea>
     </div>
     <div>
-      <span v-if="error_mess" style="color:red">{{error_mess}}</span>
+      <span v-if="error_mess" style="color:red">{{ error_mess }}</span>
     </div>
     <button class="btn btn-primary" @click="edit()">Изменить</button>
   </div>
@@ -62,7 +62,7 @@ export default {
   name: "EditCategory",
   data() {
     return {
-      error_mess:false,
+      error_mess: false,
       checked: true,
       contractor: {
         title: '',
@@ -71,8 +71,9 @@ export default {
         site: '',
         address: '',
         status: '',
-        comment:'',
-        station: '',
+        comment: '',
+        station: null,
+        station_id: '',
       },
       stations: [],
       items: []
@@ -84,7 +85,10 @@ export default {
     } else {
       this.$router.push('/contractor/all')
     }
-
+    if(this.contractor.station){
+      this.contractor.station = this.contractor.station.code + '-' + this.contractor.station.region + '(' + this.contractor.station.road + ')'
+    }
+    console.log(this.contractor, 'fgdfgdfdfg')
   },
   methods: {
     ...mapActions(['getStations', 'editContractor']),
@@ -96,13 +100,13 @@ export default {
     selectedStation(item) {
       this.contractor.station = item.code + '-' + item.region + '(' + item.road + ')'
       this.contractor.station_id = item.id
-      this.station = []
+      this.stations = []
     },
     edit() {
       this.editContractor(this.contractor).then(res => {
         if (res.success) {
           this.$router.push('/contractor/all')
-        }else{
+        } else {
           for (const resKey in res.data.errors) {
             this.error_mess = res.data.errors[resKey][0]
           }
@@ -115,3 +119,13 @@ export default {
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
+<style scoped>
+.selectStyle {
+  max-height: 200px;
+  overflow: scroll
+}
+
+.selectStyle ul li {
+  cursor: pointer
+}
+</style>
