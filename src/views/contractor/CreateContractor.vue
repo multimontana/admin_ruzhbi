@@ -9,7 +9,7 @@
             <input type="text" class="form-control form-control-lg" v-model="contractor.contact" required>
         </div>
         <div class="form-group">
-            <label>E-mail</label>
+            <label>Электронная почта</label>
             <input type="email" class="form-control form-control-lg" v-model="contractor.email" required>
         </div>
         <div class="form-group">

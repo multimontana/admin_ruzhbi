@@ -76,22 +76,22 @@ export default [
                     }
                 ]
             },
-            // {
-            //     _name: 'CSidebarNavDropdown',
-            //     name: 'Contractor',
-            //     route: '/contractor',
-            //     icon: 'cil-bell',
-            //     items: [
-            //         {
-            //             name: 'Contractor',
-            //             to: '/contractor/all'
-            //         },
-            //         {
-            //             name: 'Create Contractor',
-            //             to: '/contractor/create'
-            //         }
-            //     ]
-            // },
+            {
+                _name: 'CSidebarNavDropdown',
+                name: 'Contractor',
+                route: '/contractor',
+                icon: 'cil-bell',
+                items: [
+                    {
+                        name: 'Contractor',
+                        to: '/contractor/all'
+                    },
+                    {
+                        name: 'Create Contractor',
+                        to: '/contractor/create'
+                    }
+                ]
+            },
 
 
             //         {

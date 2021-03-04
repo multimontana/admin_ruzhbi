@@ -1,56 +1,55 @@
 <template>
-    <div>
-        <div class="form-group">
-            <label for="">Родительская категория
-            </label>
-            <select class="form-control form-control-lg" v-model="category.parent_id">
-                <option>Нет</option>
-                <option v-for="cat in categories" :value="cat.parent_id">{{ cat.title }}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="">Название *</label>
-            <input type="text" class="form-control form-control-lg" v-model="category.title">
-        </div>
-        <div class="form-group">
-            <label for="">Наценка категории *</label>
-            <input type="text" class="form-control form-control-lg" v-model="category.markup">
-        </div>
-        <div class="form-group">
-            <label for="">Серия/ГОСТ/Чертеж</label>
-            <multiselect
-                :options="serias"
-                :multiple="true"
-                :taggable="true"
-                v-model="category.seria"
-            >
-            </multiselect>
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Комментарий</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                      v-model="category.comment"></textarea>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="">Мета заголовок</label>
-                <input type="text" class="form-control form-control-lg" v-model="category.meta_title">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="">Мета описание </label>
-                <input type="text" class="form-control form-control-lg" v-model="category.meta_description">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="">Мета ключевые слова</label>
-                <input type="text" class="form-control form-control-lg" v-model="category.meta_keyword">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="">Изображение</label>
-            <input type="file" @change="onImageChange" class="form-control-file">
-        </div>
-        <button class="btn btn-primary" @click="edit()">Изменить</button>
+  <div>
+    <div class="form-group">
+      <label>Название *</label>
+      <input type="text" class="form-control form-control-lg" v-model="contractor.title" required>
     </div>
+    <div class="form-group">
+      <label>Контакты</label>
+      <input type="text" class="form-control form-control-lg" v-model="contractor.contacts" required>
+    </div>
+    <div class="form-group">
+      <label>Электронная почта</label>
+      <input type="email" class="form-control form-control-lg" v-model="contractor.email" required>
+    </div>
+    <div class="form-group">
+      <label>Сайт</label>
+      <input type="url" class="form-control form-control-lg" v-model="contractor.site" required>
+    </div>
+    <div class="form-group">
+      <label>Адрес</label>
+      <input type="text" class="form-control form-control-lg" v-model="contractor.address" required>
+    </div>
+    <div class="form-group">
+      <label>ЖД станция отгрузки</label>
+      <div class="d-flex align-items-center">
+        <input type="checkbox" class="form-control" style="width: 40px" v-model="checked"> <input type="text"
+                                                                                                  class="form-control form-control-lg"
+                                                                                                  @keyup="getStation()"
+                                                                                                  v-model="contractor.station">
+      </div>
+      <ul class="list-group selectStyle" v-if="stations.length">
+        <li class="list-group-item" v-for="(stat, index) in stations" :key="index"
+            @click="selectedStation(stat)">{{ stat.code }}-{{ stat.region }}({{ stat.road }})
+        </li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label>Статус</label>
+      <select class="form-control form-control-lg" v-model="contractor.status">
+        <option value="0" selected="">Не определен</option>
+        <option value="1">Всё ок</option>
+        <option value="2">Можно работать, но...</option>
+        <option value="3">Не работаем</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Комментарий</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                v-model="contractor.comment"></textarea>
+    </div>
+    <button class="btn btn-primary" @click="edit()">Изменить</button>
+  </div>
 </template>
 
 <script>
@@ -58,64 +57,58 @@ import {mapActions} from "vuex";
 import Multiselect from 'vue-multiselect';
 
 export default {
-    name: "EditCategory",
-    data() {
-        return {
-            category: {
-                parent_id: '',
-                title: '',
-                markup: '',
-                seria: [],
-                image: '',
-                comment: '',
-                meta_title: '',
-                meta_description: '',
-                meta_keyword: ''
-            },
-            categories: [],
-            serias: ['Select seria'],
-            items: []
-        };
-    },
-    components: {Multiselect},
-    created() {
-        this.get()
-        if(this.$route.params.item){
-            this.category = this.$route.params.item
-        }else{
-            this.$router.push('/category/all')
-        }
-        console.log(this.category)
+  name: "EditCategory",
+  data() {
+    return {
+      contractor: {
+        title: '',
+        contacts: '',
+        email: '',
+        site: '',
+        address: '',
+        status: '',
+        comment:'',
+        station: '',
+      },
+      stations: [],
+      items: []
+    };
+  },
+  created() {
+    this.get()
+    if (this.$route.params.item) {
+      this.contractor = this.$route.params.item
+    } else {
+      this.$router.push('/contractor/all')
+    }
 
+  },
+  methods: {
+    ...mapActions(['getContractors', 'getStations', 'editContractor']),
+    get() {
+      this.getContractors().then(res => {
+        this.contractor = res.contractors;
+        this.stations = res.station;
+      });
     },
-    methods: {
-        ...mapActions(['getCategories', 'editCategory']),
-        get() {
-            this.getCategories().then(res => {
-                this.categories = res.cat;
-                this.serias = res.serias;
-            });
-        },
-        edit() {
-            this.editCategory(this.category).then(res => {
-                if (res.success) {
-                    this.$router.push('/category/all')
-                }
-            });
-        },
-        onImageChange(e) {
-            let file = e.target.files[0];
-            let reader = new FileReader();
-            if (file['size'] < 2111775) {
-                reader.onloadend = (file) => {
-                    this.category.image = reader.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('File size can not be bigger than 2 MB');
-            }
-        },
+    getStation() {
+      this.getStations(this.contractor.station).then(res => {
+        this.stations = res.station;
+      });
     },
+    selectedStation(item) {
+      this.contractor.station = item.code + '-' + item.region + '(' + item.road + ')'
+      this.contractor.station_id = item.id
+      this.station = []
+    },
+    edit() {
+      this.editContractor(this.contractor).then(res => {
+        if (res.success) {
+          this.$router.push('/contractor/all')
+        }
+      });
+    }
+  },
 };
 </script>
 

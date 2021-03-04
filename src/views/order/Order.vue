@@ -72,7 +72,6 @@ export default {
         } else {
           document.querySelector('h2').innerHTML = '<p>Empty order</p>'
         }
-
       })
     },
     deleteItem(item) {
