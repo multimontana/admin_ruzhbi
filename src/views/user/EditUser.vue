@@ -56,7 +56,7 @@
       </div>
     </div>
 
-      <button class="btn btn-primary" :disabled="$v.$invalid"  @click="edit()">Изменить</button>
+      <button class="btn btn-primary" :disabled="$v.$invalid"  @click.prevent="edit()">Изменить</button>
     </div>
 </template>
 

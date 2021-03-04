@@ -13,12 +13,13 @@ export const order = {
                         'Access-Control-Allow-Origin': '*'
                     }
                 })
+                console.log(response)
                 if (response.data) {
                     return response.data
                 }
                 return {success: false}
             } catch (e) {
-                console.log(e.response.data.message);
+                // console.log(e.response.data.message);
             }
         },
         async deleteOrder (context, data) {
