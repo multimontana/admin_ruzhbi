@@ -86,7 +86,6 @@ export default {
     get() {
       this.getContractors().then(res => {
         if (res.contractors.length) {
-          console.log(res.contractors, 'fgdfgdfgdfgf')
           this.items = res.contractors
         } else {
           document.querySelector('h2').innerHTML = 'Empty'

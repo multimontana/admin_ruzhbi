@@ -48,18 +48,22 @@
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                 v-model="contractor.comment"></textarea>
     </div>
+    <div>
+      <span v-if="error_mess" style="color:red">{{error_mess}}</span>
+    </div>
     <button class="btn btn-primary" @click="edit()">Изменить</button>
   </div>
 </template>
 
 <script>
 import {mapActions} from "vuex";
-import Multiselect from 'vue-multiselect';
 
 export default {
   name: "EditCategory",
   data() {
     return {
+      error_mess:false,
+      checked: true,
       contractor: {
         title: '',
         contacts: '',
@@ -75,7 +79,6 @@ export default {
     };
   },
   created() {
-    this.get()
     if (this.$route.params.item) {
       this.contractor = this.$route.params.item
     } else {
@@ -84,17 +87,11 @@ export default {
 
   },
   methods: {
-    ...mapActions(['getContractors', 'getStations', 'editContractor']),
-    get() {
-      this.getContractors().then(res => {
-        this.contractor = res.contractors;
-        this.stations = res.station;
-      });
-    },
+    ...mapActions(['getStations', 'editContractor']),
     getStation() {
       this.getStations(this.contractor.station).then(res => {
         this.stations = res.station;
-      });
+      })
     },
     selectedStation(item) {
       this.contractor.station = item.code + '-' + item.region + '(' + item.road + ')'
@@ -105,8 +102,12 @@ export default {
       this.editContractor(this.contractor).then(res => {
         if (res.success) {
           this.$router.push('/contractor/all')
+        }else{
+          for (const resKey in res.data.errors) {
+            this.error_mess = res.data.errors[resKey][0]
+          }
         }
-      });
+      })
     }
   },
 };

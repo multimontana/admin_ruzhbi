@@ -37,12 +37,12 @@ export const contractors = {
                 }
                 return {success: false}
             } catch (e) {
-                console.log(e)
+                 return  e.response
             }
         },
         async editContractor (context, data) {
             try {
-                const response = await axios.put('/contractors/' + data.id, data, {
+                const response = await axios.put('/contractors/' + data.id, qs.stringify(data), {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Access-Control-Allow-Origin': '*'
@@ -53,7 +53,7 @@ export const contractors = {
                 }
                 return {success: false}
             } catch (e) {
-                console.log(e)
+                return  e.response
             }
         },
         async deleteContractor (context, data) {
