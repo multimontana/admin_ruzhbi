@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {logo} from "../../assets/icons/logo";
 
 const qs = require('query-string')
 
@@ -42,9 +43,20 @@ export const items = {
         },
         async createItem(context, data) {
             try {
-                const response = await axios.post('/items/create', qs.stringify(data), {
+                const formData = new FormData()
+                for (const prop in data) {
+                    if (prop === 'document') {
+                        for (let i = 0; i < data[prop].length; i++) {
+                            formData.append('document[' + i + ']', data[prop][i])
+                        }
+                    } else {
+                        formData.append([prop], data[prop])
+
+                    }
+                }
+                const response = await axios.post('/items/create', formData, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'multipart/form-data',
                         'Access-Control-Allow-Origin': '*'
                     }
                 })
@@ -58,9 +70,19 @@ export const items = {
         },
         async editItem(context, data) {
             try {
-                const response = await axios.put('/items/' + data.id, qs.stringify(data), {
+                let formData = new FormData()
+                for (const prop in data) {
+                    if (prop === 'document') {
+                        for (let i = 0; i < data[prop].length; i++) {
+                            formData.append('document[' + i + ']', data[prop][i])
+                        }
+                    } else {
+                        formData.append([prop], data[prop])
+                    }
+                }
+                const response = await axios.post('/items/' + data.id, formData, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'multipart/form-data',
                         'Access-Control-Allow-Origin': '*'
                     }
                 })

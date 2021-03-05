@@ -11,6 +11,13 @@
                 sorter
                 pagination
         >
+          <template #isAdmin="{item}">
+            <td>
+              <CBadge :color="item.isAdmin ? 'success' : 'primary'">
+                {{ item.isAdmin ? 'From shop admin' : 'From admin' }}
+              </CBadge>
+            </td>
+          </template>
             <template #edit="{item}">
                 <td class="py-2">
                     <CButton

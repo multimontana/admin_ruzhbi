@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!--        <div class="form-group">-->
-    <!--            <label for="">Цена </label>-->
-    <!--            <select class="form-control form-control-lg" v-model="item.price_id">-->
-    <!--                <option v-for="price in prices" :value="price.id">{{ price.id }}</option>-->
-    <!--            </select>-->
-    <!--        </div>-->
+    <div class="form-group">
+      <label for="">Цена </label>
+      <select class="form-control form-control-lg" v-model="item.price_id">
+        <option v-for="price in prices" :value="price.id">{{ price.id }}</option>
+      </select>
+    </div>
     <div class="form-group">
       <label for="">Название *</label>
       <input type="text" class="form-control form-control-lg" v-model="item.title"
@@ -66,6 +66,18 @@
         <input type="text" class="form-control form-control-lg" v-model="item.meta_keyword">
       </div>
     </div>
+    <div class="form-row">
+      <label for="">Прикрепить файл</label>
+    </div>
+<!--    <div style="position: relative" v-for="(src_img,i) in JSON.parse(item.document)" :key="i">-->
+<!--      <a :href="src_img" target="_blank"><img src="/pdf.jpg" height="35px" alt="document"></a>-->
+<!--      <span style="position: absolute;cursor: pointer">X</span>-->
+<!--    </div>-->
+    <div class="dropbox">
+      <input type="file" multiple name="document" @change="upload($event)"
+             accept="application/pdf" class="input-file">
+      Upload files <span>{{ filelength }} {{ filename }}</span>
+    </div>
     <button class="btn btn-primary" :disabled="$v.$invalid" @click="edit()">Изменить</button>
   </div>
 </template>
@@ -78,8 +90,10 @@ export default {
   name: "EditCategory",
   data() {
     return {
+      filelength: '',
+      filename: 'Empty',
       item: {
-        price_id: 1,
+        price_id: '',
         title: '',
         markup: '',
         comment: '',
@@ -90,7 +104,8 @@ export default {
         width: '',
         height: '',
         length: '',
-        weight: ''
+        weight: '',
+        document: []
       },
       items: [],
       prices: []
@@ -109,9 +124,12 @@ export default {
   created() {
     this.get()
     if (this.$route.params.item) {
-      this.item = this.$route.params.item
+      this.item = {...this.$route.params.item}
       this.item.properties.forEach(item => {
         switch (item.name) {
+          case 'length':
+            this.item.length = item.value
+            break
           case 'price':
             this.item.price = item.value
             break
@@ -121,13 +139,8 @@ export default {
           case 'height':
             this.item.height = item.value
             break
-          case 'length':
-            this.item.length = item.value
-            break
           case 'weight':
             this.item.weight = item.value
-            break
-          default:
             break
         }
       })
@@ -137,6 +150,11 @@ export default {
   },
   methods: {
     ...mapActions(['getPrices', 'editItem']),
+    upload(event) {
+      this.filename = event.target.name
+      this.filelength = event.target.files.length
+      this.item.document = event.target.files;
+    },
     get() {
       this.getPrices().then(res => {
         this.prices = res.price
@@ -152,5 +170,35 @@ export default {
   },
 };
 </script>
+<style scoped>
+.dropbox {
+  outline: 2px dashed grey; /* the dash box */
+  outline-offset: -10px;
+  background: lightcyan;
+  color: dimgray;
+  padding: 10px 10px;
+  min-height: 100px; /* minimum height */
+  position: relative;
+  cursor: pointer;
+}
+
+.input-file {
+  opacity: 0; /* invisible but it's there! */
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.dropbox:hover {
+  background: lightblue; /* when mouse over to the drop zone, change color */
+}
+
+.dropbox p {
+  font-size: 1.2em;
+  text-align: center;
+  padding: 50px 0;
+}
+</style>
 
 
