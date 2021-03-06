@@ -58,7 +58,7 @@
       <label for="">Изображение *</label>
       <input type="file" @change="onImageChange" class="form-control-file">
     </div>
-    <button class="btn btn-primary" :disabled="$v.$invalid" @click="create()">Создать</button>
+    <button class="btn btn-primary" :disabled="$v.$invalid" @click.prevent="create()">Создать</button>
   </div>
 </template>
 
