@@ -71,6 +71,7 @@ export default {
   name: "CreateCategory",
   data() {
     return {
+      disable_button: true,
       category: {
         parent_id: 0,
         title: '',
@@ -110,13 +111,17 @@ export default {
       });
     },
     create() {
+      if (this.disable_button) {
+        this.disable_button = false
       this.createCategory(this.category).then(res => {
         if (res.success) {
+          this.disable_button = true
           this.$router.push('/category/all')
         } else {
           alert('Please check and insert again')
         }
       });
+  }
     },
     onImageChange(e) {
       let file = e.target.files[0];
