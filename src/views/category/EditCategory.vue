@@ -4,7 +4,7 @@
       <label>Родительская категория
       </label>
       <select class="form-control form-control-lg" v-model="category.parent_id">
-        <option value="'0'">Нет</option>
+        <option value="0">Нет</option>
         <option v-for="cat in categories" :value="cat.parent_id">{{ cat.title }}</option>
       </select>
     </div>
@@ -74,7 +74,7 @@ export default {
     return {
       disable_button: true,
       category: {
-        parent_id: '0',
+        parent_id: 0,
         title: '',
         markup: '',
         seria: [],

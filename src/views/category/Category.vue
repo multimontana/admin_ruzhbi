@@ -13,7 +13,7 @@
         >
           <template #image="{item}">
             <td>
-              <img :src="process.env.BACKEND_URL+item.image" height="60px" width="60px" :alt="item.comment">
+              <img :src="getProcessEnvUrl+item.image" height="60px" width="60px" :alt="item.comment">
             </td>
           </template>
             <template #isAdmin="{item}">
@@ -92,6 +92,11 @@ export default {
             details: [],
             collapseDuration: 0
         }
+    },
+    computed: {
+      getProcessEnvUrl () {
+        return process.env.VUE_APP_BACKEND_URL
+      }
     },
     mounted () {
         document.querySelector('h2').innerHTML = '<img src="/img/load.gif" class="loading" alt="load data">';
