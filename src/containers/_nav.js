@@ -92,6 +92,22 @@ export default [
                     }
                 ]
             },
+            {
+                _name: 'CSidebarNavDropdown',
+                name: 'Variable',
+                route: '/variable',
+                icon: 'cil-speech',
+                items: [
+                    {
+                        name: 'Variable',
+                        to: '/variable/all'
+                    },
+                    {
+                        name: 'Create variable',
+                        to: '/variable/create'
+                    }
+                ]
+            },
 
 
             //         {

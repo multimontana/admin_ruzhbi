@@ -9,10 +9,10 @@ import Vuelidate from 'vuelidate'
 import axios from 'axios'
 
 import Paginate from 'vuejs-paginate'
-Vue.component('paginate', Paginate)
 
 Vue.config.performance = true
 Vue.use(CoreuiVue)
+Vue.use(swal)
 Vue.use(Vuelidate)
 Vue.prototype.$log = console.log.bind(console)
 

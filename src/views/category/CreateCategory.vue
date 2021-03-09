@@ -4,7 +4,7 @@
       <label for="">Родительская категория
       </label>
       <select class="form-control form-control-lg" v-model="category.parent_id">
-        <option value="0">Нет</option>
+        <option value="'0'">Нет</option>
         <option v-for="cat in categories" :value="cat.parent_id">{{ cat.title }}</option>
       </select>
     </div>
@@ -73,7 +73,7 @@ export default {
     return {
       disable_button: true,
       category: {
-        parent_id: 0,
+        parent_id: '0',
         title: '',
         markup: '',
         seria: null,
@@ -93,7 +93,7 @@ export default {
       title: {
         required
       },
-        markup: {
+      markup: {
         required
       }
     }
@@ -113,15 +113,15 @@ export default {
     create() {
       if (this.disable_button) {
         this.disable_button = false
-      this.createCategory(this.category).then(res => {
-        if (res.success) {
-          this.disable_button = true
-          this.$router.push('/category/all')
-        } else {
-          alert('Please check and insert again')
-        }
-      });
-  }
+        this.createCategory(this.category).then(res => {
+          if (res.success) {
+            this.disable_button = true
+            this.$router.push('/category/all')
+          } else {
+            alert('Please check and insert again')
+          }
+        });
+      }
     },
     onImageChange(e) {
       let file = e.target.files[0];

@@ -11,6 +11,11 @@
                 sorter
                 pagination
         >
+          <template #image="{item}">
+            <td>
+              <img :src="process.env.BACKEND_URL+item.image" height="60px" width="60px" :alt="item.comment">
+            </td>
+          </template>
             <template #isAdmin="{item}">
                 <td>
                     <CBadge :color="item.isAdmin ? 'success' : 'primary'">
@@ -57,6 +62,7 @@
 import {mapActions} from "vuex";
 
 const fields = [
+    {key: 'image', _style: 'min-width:200px'},
     {key: 'title', _style: 'min-width:200px'},
     {key: 'markup', _style: 'min-width:100px;'},
     {key: 'seria', _style: 'min-width:100px;'},

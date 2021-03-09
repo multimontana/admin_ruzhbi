@@ -24,6 +24,11 @@ const Contractor = () => import('@/views/contractor/Contractor')
 const CreateContractor = () => import('@/views/contractor/CreateContractor')
 const EditContractor = () => import('@/views/contractor/EditContractor')
 
+//Variable
+const Variable = () => import('@/views/variable/Variable')
+const CreateVariable = () => import('@/views/variable/CreateVariable')
+const EditVariable = () => import('@/views/variable/EditVariable')
+
 //Contact
 const Contact = () => import('@/views/contact/Contact')
 
@@ -150,6 +155,7 @@ const routes = [
                     }
                 ]
             },
+
             {
                 name: 'Item',
                 path: 'item',
@@ -235,6 +241,33 @@ const routes = [
                         path: '/',
                         name: 'orderInfo',
                         component: Order
+                    }
+                ]
+            },
+            {
+                name: 'Variable',
+                path: 'variable',
+                meta: {requiresAuth: true},
+                component: {
+                    render(c) {
+                        return c('router-view')
+                    }
+                },
+                children: [
+                    {
+                        path: 'all',
+                        name: 'Variables',
+                        component: Variable
+                    },
+                    {
+                        path: 'create',
+                        name: 'CreateVariable',
+                        component: CreateVariable
+                    },
+                    {
+                        path: 'edit',
+                        name: 'EditVariable',
+                        component: EditVariable
                     }
                 ]
             },
