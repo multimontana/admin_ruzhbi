@@ -9,6 +9,10 @@
       </select>
     </div>
     <div class="form-group">
+      <label for="">Кастомный url*</label>
+      <input type="text" class="form-control form-control-lg" v-model="category.url">
+    </div>
+    <div class="form-group">
       <label for="">Название *</label>
       <input type="text" class="form-control form-control-lg" v-model="category.title"
              :class="{'is-invalid': $v.category.title.$error}"
@@ -75,6 +79,7 @@ export default {
       category: {
         parent_id: 0,
         title: '',
+        url: '',
         markup: '',
         seria: null,
         image: '',

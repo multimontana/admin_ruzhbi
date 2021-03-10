@@ -9,6 +9,10 @@
       </select>
     </div>
     <div class="form-group">
+      <label for="">Кастомный url*</label>
+      <input type="text" class="form-control form-control-lg" v-model="category.url">
+    </div>
+    <div class="form-group">
       <label>Название *</label>
       <input type="text" class="form-control form-control-lg" v-model="category.title"
              :class="{'is-invalid': $v.category.title.$error}"
@@ -57,6 +61,9 @@
     </div>
     <div class="form-group">
       <label>Изображение</label>
+      <div>
+        <img :src="category.image" ref="cat_image" height="60px" width="60px" alt="category_image">
+      </div>
       <input type="file" @change="onImageChange" class="form-control-file">
     </div>
     <button class="btn btn-primary" :disabled="$v.$invalid" @click.prevent="edit">Изменить</button>
@@ -75,6 +82,7 @@ export default {
       disable_button: true,
       category: {
         parent_id: 0,
+        url: '',
         title: '',
         markup: '',
         seria: [],
@@ -104,6 +112,7 @@ export default {
     this.get()
     if (this.$route.params.item) {
       this.category = this.$route.params.item
+      this.category.image = this.getProcessEnvUrl() + this.category.image
       this.category.seria = JSON.parse(this.category.seria)
     } else {
       this.$router.push('/category/all')
@@ -111,6 +120,9 @@ export default {
   },
   methods: {
     ...mapActions(['getCategories', 'editCategory']),
+    getProcessEnvUrl () {
+      return process.env.VUE_APP_BACKEND_URL
+    },
     get() {
       this.getCategories().then(res => {
         this.categories = res.cat;
@@ -133,6 +145,7 @@ export default {
       let reader = new FileReader();
       if (file['size'] < 2111775) {
         reader.onloadend = (file) => {
+          this.$refs.cat_image.src = reader.result
           this.category.image = reader.result;
         };
         reader.readAsDataURL(file);
