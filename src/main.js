@@ -8,13 +8,17 @@ import store from './store'
 import Vuelidate from 'vuelidate'
 import axios from 'axios'
 
-import Paginate from 'vuejs-paginate'
+import paginate from 'vuejs-paginate'
 
 Vue.config.performance = true
 Vue.use(CoreuiVue)
 Vue.use(swal)
 Vue.use(Vuelidate)
 Vue.prototype.$log = console.log.bind(console)
+
+Vue.use(paginate)
+
+
 
 axios.defaults.baseURL = 'http://localhost:8000/api/admin'
 axios.defaults.headers.common['Content-Type'] = 'application/json'

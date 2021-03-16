@@ -16,6 +16,10 @@
       </div>
     </div>
     <div class="form-group">
+      <label for="">Кастомный url*</label>
+      <input type="text" class="form-control form-control-lg" v-model="item.url">
+    </div>
+    <div class="form-group">
       <label for="">Наценка категории *</label>
       <input type="text" class="form-control form-control-lg" v-model="item.markup"
              :class="{'is-invalid': $v.item.markup.$error}"
@@ -101,7 +105,8 @@ export default {
         height: '',
         length: '',
         weight: '',
-        document: []
+        document: [],
+        url: '',
       },
       items: [],
       prices: []

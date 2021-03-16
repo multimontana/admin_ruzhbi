@@ -71,15 +71,19 @@ export const items = {
         async editItem(context, data) {
             try {
                 let formData = new FormData()
+
                 for (const prop in data) {
-                    if (prop === 'document') {
+                    if (prop === 'document' && data[prop] !== null) {
                         for (let i = 0; i < data[prop].length; i++) {
                             formData.append('document[' + i + ']', data[prop][i])
+                            console.log(data[prop][i])
                         }
-                    } else {
-                        formData.append([prop], data[prop])
+                    }
+                    else {
+                        formData.append(prop, data[prop])
                     }
                 }
+
                 const response = await axios.post('/items/' + data.id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -109,8 +113,22 @@ export const items = {
             } catch (e) {
                 console.log(e.response.data.message);
             }
-        }
-
+        },
+        async searchItems(context, data) {
+            try {
+                const response = await axios.post('/search', {data},{
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                if (response.data) {
+                    return response.data
+                }
+                return {success: false}
+            } catch (e) {
+                console.log(e.response.data.message);
+            }
+        },
     },
     getters: {}
 }
