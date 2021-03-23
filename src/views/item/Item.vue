@@ -123,7 +123,7 @@ export default {
 
       this.getItems(page).then(res => {
         this.items = res.item
-        document.getElementById('load').innerHTML = ''
+        document.getElementById('load') ? document.getElementById('load').innerHTML='': '';
       })
     },
     edit(item) {
