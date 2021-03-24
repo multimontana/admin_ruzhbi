@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="form-group">
-      <label for="">Цена </label>
-      <select class="form-control form-control-lg" v-model="item.price_id">
-        <option v-for="price in prices" :value="price.id">{{ price.id }}</option>
-      </select>
-    </div>
+<!--    <div class="form-group">-->
+<!--      <label for="">Цена </label>-->
+<!--      <select class="form-control form-control-lg" v-model="item.price_id">-->
+<!--        <option v-for="price in prices" :value="price.id">{{ price.id }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
     <div class="form-group">
       <label for="">Название *</label>
       <input type="text" class="form-control form-control-lg" v-model="item.title"
@@ -140,8 +140,6 @@ export default {
     }
   },
   created() {
-
-
     this.get()
     if (this.$route.params.item) {
       this.item = {...this.$route.params.item}
@@ -192,6 +190,7 @@ export default {
       });
     },
     edit() {
+      console.log(this.item)
       this.editItem(this.item).then(res => {
         if (res.success) {
           this.$router.push('/item/all')

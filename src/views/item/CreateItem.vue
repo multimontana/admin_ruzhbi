@@ -1,9 +1,15 @@
 <template>
   <div>
     <div class="form-group">
-      <label for="">Цена </label>
-      <select class="form-control form-control-lg" v-model="item.price_id">
-        <option v-for="price in prices" :value="price.id">{{ price.id }}</option>
+      <label for="">Категория </label>
+      <select class="form-control form-control-lg" v-model="item.category_id">
+        <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">Поставщик </label>
+      <select class="form-control form-control-lg" v-model="item.contractor_id">
+        <option v-for="contractor in contractors" :value="contractor.id">{{ contractor.title }}</option>
       </select>
     </div>
     <div class="form-group">
@@ -72,11 +78,11 @@
     <div class="form-row">
       <label for="">Прикрепить файл</label>
     </div>
-      <div class="dropbox">
-        <input type="file" multiple name="document" @change="upload($event)"
-               accept="application/pdf" class="input-file">
-        Upload files <span>{{ filelength }} {{filename}}</span>
-      </div>
+    <div class="dropbox">
+      <input type="file" multiple name="document" @change="upload($event)"
+             accept="application/pdf" class="input-file">
+      Upload files <span>{{ filelength }} {{ filename }}</span>
+    </div>
 
     <button class="btn btn-primary" :disabled="$v.$invalid" @click="create()">Создать</button>
   </div>
@@ -90,9 +96,11 @@ export default {
   name: "CreateItem",
   data() {
     return {
-      filelength:'',
-      filename:'Empty',
+      filelength: '',
+      filename: 'Empty',
       item: {
+        category_id: '',
+        contractor_id: '',
         price_id: '',
         title: '',
         markup: '',
@@ -109,7 +117,9 @@ export default {
         url: '',
       },
       items: [],
-      prices: []
+      prices: [],
+      categories: [],
+      contractors: []
     };
   },
   validations: {
@@ -127,15 +137,19 @@ export default {
     this.get()
   },
   methods: {
-    ...mapActions(['getPrices', 'createItem']),
+    ...mapActions(['getCategories', 'getContractors', 'createItem']),
     upload(event) {
       this.filename = event.target.name
       this.filelength = event.target.files.length
       this.item.document = event.target.files;
     },
     get() {
-      this.getPrices().then(res => {
-        this.prices = res.price
+      this.getCategories().then(res => {
+        this.categories = res.cat
+      })
+      this.getContractors().then(res => {
+        console.log(res)
+        this.contractors = res.contractors
       })
     },
     create() {
